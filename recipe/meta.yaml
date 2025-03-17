@@ -1,0 +1,42 @@
+{% set name = "streamlit-slickgrid" %}
+{% set version = "0.1.11" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/streamlit_slickgrid-{{ version }}.tar.gz
+  sha256: 1147ee34cf0da53a3ad29aa60d84016754f03564766bc301e440696ab7a35419
+
+build:
+  skip: True  # [py<39]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python
+    - python-build
+    - setuptools
+    - pip
+  run:
+    - python
+    - streamlit >=1.40.0
+
+test:
+  imports:
+    - streamlit_slickgrid
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  summary: A Streamlit component that wraps SlickGrid
+  license: Apache-2.0
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - Zdreni
