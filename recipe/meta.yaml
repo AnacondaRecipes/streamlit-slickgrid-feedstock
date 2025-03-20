@@ -1,0 +1,51 @@
+{% set name = "streamlit-slickgrid" %}
+{% set version = "0.1.11" %}
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/streamlit_slickgrid-{{ version }}.tar.gz
+  sha256: 1147ee34cf0da53a3ad29aa60d84016754f03564766bc301e440696ab7a35419
+
+build:
+  skip: True  # [py<39]
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 0
+
+requirements:
+  host:
+    - python
+    - setuptools
+    - pip
+    - wheel
+  run:
+    - python
+    - streamlit >=1.40.0
+
+test:
+  imports:
+    - streamlit_slickgrid
+  commands:
+    - pip check
+  requires:
+    - pip
+
+about:
+  home: https://github.com/streamlit/streamlit-slickgrid/
+  dev_url: https://github.com/streamlit/streamlit-slickgrid/
+  doc_url: https://github.com/streamlit/streamlit-slickgrid/blob/main/README.md
+  license: Apache-2.0
+  license_family: Apache
+  license_file: LICENSE
+  summary: A Streamlit component that wraps SlickGrid
+  description: |
+    streamlit-slickgrid is a Python package that provides a Streamlit component for embedding SlickGrid,
+    a fast and flexible JavaScript data grid. It allows users to display and interact with large datasets
+    in Streamlit apps, supporting features like sorting, filtering, inline editing, and virtualization.
+
+
+extra:
+  recipe-maintainers:
+    - solesnake
